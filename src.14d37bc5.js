@@ -1,6 +1,6 @@
 parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof require&&require;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"krre":[function(require,module,exports) {
 
-},{}],"Vl7d":[function(require,module,exports) {
+},{"./../images/bg-pattern.png":[["bg-pattern.609e53a8.png","pUtz"],"pUtz"]}],"Vl7d":[function(require,module,exports) {
 
 },{"./MaterialIcons-Regular.eot":[["MaterialIcons-Regular.b2dfdb43.eot","j5gN"],"j5gN"],"./MaterialIcons-Regular.woff2":[["MaterialIcons-Regular.042e3246.woff2","TxNh"],"TxNh"],"./MaterialIcons-Regular.woff":[["MaterialIcons-Regular.cc4a9352.woff","BrWe"],"BrWe"],"./MaterialIcons-Regular.ttf":[["MaterialIcons-Regular.7f257eac.ttf","EElw"],"EElw"]}],"EDTP":[function(require,module,exports) {
 "use strict";module.exports=function(r,n){return function(){for(var t=new Array(arguments.length),e=0;e<t.length;e++)t[e]=arguments[e];return r.apply(n,t)}};
@@ -67,4 +67,4 @@ module.exports=require("./lib/axios");
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./css/styles.css"),require("../node_modules/material-design-icons/iconfont/material-icons.css");var e=r(require("./js/apiService")),s=require("./js/refs");function r(e){return e&&e.__esModule?e:{default:e}}const t=new e.default,{input:i,gallery:n}=s.refs;t.getGalleryItems().then(e=>console.log(e.data));
 },{"./css/styles.css":"krre","../node_modules/material-design-icons/iconfont/material-icons.css":"Vl7d","./js/apiService":"eQwa","./js/refs":"VyiV"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-13-image-finder/src.5044009f.js.map
+//# sourceMappingURL=/goit-js-hw-13-image-finder/src.14d37bc5.js.map
