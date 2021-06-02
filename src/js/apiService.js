@@ -9,10 +9,6 @@ export default class PixabayApiService {
     this.page = 1;
   }
 
-  get page() {
-    return this.page;
-  }
-
   get query() {
     return this.searchQuery;
   }
@@ -31,19 +27,7 @@ export default class PixabayApiService {
 
   async getGalleryItems() {
     
-    const response = await axios.get(
-      `?image_type=photo&orientation=horizontal&q=${this.query}g&page=${this.page}&per_page=12&key=${API_KEY}`
-    );
-
-    return response
-      .json()
-      .then(({ hits }) => {
-        this.incrementPage();
-
-        return hits;
-      })
-      .catch(err => {
-        console.warn(err);
-      });
+    return await axios.get(
+      `?image_type=photo&orientation=horizontal&q=${this.query}&page=${this.page}&per_page=12&key=${API_KEY}`);    
   }
 }
