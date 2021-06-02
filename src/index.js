@@ -3,15 +3,15 @@ import '../node_modules/material-design-icons/iconfont/material-icons.css';
 import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/PNotify.css';
 
+import { error, success } from '@pnotify/core';
 
 import api from './js/apiService';
 import { refs } from './js/refs';
 
-import { error, success } from '@pnotify/core';
-
-// import itemCards from './templates/itemCards.hbs';
-
 const { input, gallery } = refs;
+
+// import galleryCards from './templates/itemCards.hbs';
+
 
 // function dataRequest(query) {
 //   api.getGalleryItems().then(response => {
@@ -20,23 +20,26 @@ const { input, gallery } = refs;
 //   });  
 // }
 
-// input.addEventListener('submit', onSearch);
+input.addEventListener('submit', onSearch);
 
-// function onSearch(event) {
-//   event.preventDefault();
+function onSearch(event) {
+  event.preventDefault();
+  
+  if (api.searchQuery === '') {
+    return error({
+      text: "You have not entered a request. Enter the correct data for your search!",
+      type: 'error',
+      delay: 2000,
+    });
+  }
 
-//   api.query = event.currentTarget.elements.query.value;
+  if (api.searchQuery !== event.currentTarget.elements.query.value) {
+    api.searchQuery = event.currentTarget.elements.query.value;  
+  }
 
-//   if (api.query === '') {
-//     error({
-//       text: "You have not entered a request. Enter the correct data for your search!",
-//       type: 'error',
-//       delay: 2000,
-//     });
-//   }
 
-//   // loadMoreBtn.show();
-//   // newsApiService.resetPage();
-//   // clearArticlesContainer();
-//   // fetchArticles();
-// }
+  // loadMoreBtn.show();
+  // newsApiService.resetPage();
+  // clearArticlesContainer();
+  // fetchArticles();
+}

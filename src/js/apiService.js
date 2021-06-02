@@ -34,15 +34,13 @@ class PixabayApiService {
     this.page = 1;
   }
 
-  fetchGallery() {
-    return axios.get(
+  fetchGallery = () =>
+    axios.get(
       `?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${this.#key_api}`);
-  }
     
 
-  getGalleryItems() {
-    return fetchGallery().then(response => console.log(response.data.hits));
-   }
+  getGalleryItems = () =>
+    fetchGallery().then(response => console.log(response.data.hits));
   
       // transformImgList = dataList =>
   //   dataList.map(item => ({
@@ -55,5 +53,3 @@ class PixabayApiService {
 const api = new PixabayApiService();
 
 export default api;
-
-console.log(api.getGalleryItems(fetchGallery()));
