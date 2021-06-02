@@ -1,48 +1,78 @@
-import axios from 'axios';
+import getRefs from './get-refs.js';
+import imgCardTmpl from '../templates/image-card.hbs';
+import ImagesApiService from './images-service.js';
 
-axios.defaults.baseURL = 'https://pixabay.com/api/';
+import LoadMoreBtn from './components/load-more-btn.js';
+import onFetchError from './notification.js'
 
-class PixabayApiService {
-  #key_api = '21893871-c16b87b2a4653cca508137d28';
+const refs = getRefs();
 
-  constructor() {
-    this.searchQuery = '';
-    this.page = 1;
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
+
+const imagesApiService = new ImagesApiService();
+
+refs.searchForm.addEventListener('submit', onSearchImg);
+
+loadMoreBtn.refs.button.addEventListener('click', () => {
+  onLoadImgs();
+  scrollToBottomPg();
+});
+
+
+function onSearchImg(e) {
+  e.preventDefault();
+
+  imagesApiService.query = e.currentTarget.elements.query.value;
+
+  if (!imagesApiService.query) {
+    return onFetchError();
   }
-
-  get query() {
-    return this.searchQuery;
-  }
-
-  set query(newQuery) {
-    this.searchQuery = newQuery;
-  }
-
-  get currentPage() {
-    return this.page;
-  }
-
-  set currentPage(newPage) {
-    this.page = newPage;
-  }
-
-  incrementPage() {
-    this.page += 1;
-  }
-
-  resetPage() {
-    this.page = 1;
-  }
-
-  fetchGallery = () =>
-    axios.get(
-      `?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${this.#key_api}`);
-    
-
-  getGalleryItems = () =>
-    fetchGallery().then(response => console.log(response.data.hits));
+  loadMoreBtn.show();
+  imagesApiService.resetPage();
+  clearArticlesContainer();
+  onLoadImgs();
 }
 
-const api = new PixabayApiService();
+function onLoadImgs() {
+  loadMoreBtn.disable();
 
-export default api;
+  imagesApiService.fetchImages()
+  .then(hits => {
+    renderImgCard(hits);
+    loadMoreBtn.enable();
+  });
+}
+
+function renderImgCard(hits) {
+  const markup = imgCardTmpl(hits);
+  refs.galleryContainer.insertAdjacentHTML('beforeend', markup);
+}
+
+function clearArticlesContainer() {
+  refs.galleryContainer.innerHTML = '';
+}
+
+function scrollToBottomPg() {
+  setTimeout(() => {
+    loadMoreBtn.refs.button.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, 500);
+}
+
+refs.toTopBtn.addEventListener('click', onMoveToTop);
+
+window.onscroll = function () {
+  if (window.pageYOffset > 580) {
+    refs.toTopBtn.style.display = 'block';
+  } else {
+    refs.toTopBtn.style.display = 'none';
+  }
+};
+
+function onMoveToTop() {
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 500);
+}
