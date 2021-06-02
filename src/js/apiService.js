@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const API_KEY = '21893871-c16b87b2a4653cca508137d28';
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
-export default class PixabayApiService {
+class PixabayApiService {
+  #key_api = '21893871-c16b87b2a4653cca508137d28';
+
   constructor() {
     this.searchQuery = '';
     this.page = 1;
@@ -14,7 +15,15 @@ export default class PixabayApiService {
   }
 
   set query(newQuery) {
-    this.searchQuery = newQuery;    
+    this.searchQuery = newQuery;
+  }
+
+  get currentPage() {
+    return this.page;
+  }
+
+  set currentPage(newPage) {
+    this.page = newPage;
   }
 
   incrementPage() {
@@ -25,9 +34,26 @@ export default class PixabayApiService {
     this.page = 1;
   }
 
-  async getGalleryItems() {
-    
-    return await axios.get(
-      `?image_type=photo&orientation=horizontal&q=${this.query}&page=${this.page}&per_page=12&key=${API_KEY}`);    
+  fetchGallery() {
+    return axios.get(
+      `?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${this.#key_api}`);
   }
+    
+
+  getGalleryItems() {
+    return fetchGallery().then(response => console.log(response.data.hits));
+   }
+  
+      // transformImgList = dataList =>
+  //   dataList.map(item => ({
+  //     largeImageURL: item.largeImageURL,
+  //     webformatURL: item.webformatURL,
+  //     tags: item.tags,
+  //   }));
 }
+
+const api = new PixabayApiService();
+
+export default api;
+
+console.log(api.getGalleryItems(fetchGallery()));
