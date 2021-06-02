@@ -10,7 +10,7 @@ import { refs } from './js/refs';
 
 const { form, gallery } = refs;
 
-// import galleryCards from './templates/itemCards.hbs';
+import cardTemplate from './templates/itemCards.hbs';
 
 
 // function dataRequest(query) {
@@ -43,10 +43,17 @@ function onSearch(event) {
   api
     .fetchGallery()
     .then(response => response.data.hits)
-    .then(list => console.log(list));
+    .then(list => renderMarkup(list));
+  
+  // renderMarkup(gallery, cardTemplate, list)
 
   // loadMoreBtn.show();
   // newsApiService.resetPage();
   // clearArticlesContainer();
   // fetchArticles();
 }
+
+  const renderMarkup = (list) => {
+    const markup = cardTemplate(list);
+    gallery.insertAdjacentHTML('afterbegin', markup);
+  };
