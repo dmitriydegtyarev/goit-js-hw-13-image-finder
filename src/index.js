@@ -12,14 +12,6 @@ const { form, gallery } = refs;
 
 import cardTemplate from './templates/itemCards.hbs';
 
-
-// function dataRequest(query) {
-//   api.getGalleryItems().then(response => {
-//     console.log(response.data);
-//     return response.data;
-//   });  
-// }
-
 form.addEventListener('submit', onSearch);
 
 function onSearch(event) {

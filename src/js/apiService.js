@@ -41,13 +41,6 @@ class PixabayApiService {
 
   getGalleryItems = () =>
     fetchGallery().then(response => console.log(response.data.hits));
-  
-      // transformImgList = dataList =>
-  //   dataList.map(item => ({
-  //     largeImageURL: item.largeImageURL,
-  //     webformatURL: item.webformatURL,
-  //     tags: item.tags,
-  //   }));
 }
 
 const api = new PixabayApiService();
