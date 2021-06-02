@@ -24,7 +24,7 @@ form.addEventListener('submit', onSearch);
 
 function onSearch(event) {
   event.preventDefault();
-  
+
   api.searchQuery = event.currentTarget.elements.query.value;
   
   if (api.searchQuery === '') {
@@ -40,12 +40,10 @@ function onSearch(event) {
     gallery.innerHTML = '';
   }
 
-  console.log('start onSearch');
-
   api
     .fetchGallery()
-    .then(response => console.log(response.data));
-
+    .then(response => response.data.hits)
+    .then(list => console.log(list));
 
   // loadMoreBtn.show();
   // newsApiService.resetPage();
