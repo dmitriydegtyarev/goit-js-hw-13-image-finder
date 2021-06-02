@@ -8,7 +8,7 @@ import { error, success } from '@pnotify/core';
 import api from './js/apiService';
 import { refs } from './js/refs';
 
-const { input, gallery } = refs;
+const { form, gallery } = refs;
 
 // import galleryCards from './templates/itemCards.hbs';
 
@@ -20,10 +20,12 @@ const { input, gallery } = refs;
 //   });  
 // }
 
-input.addEventListener('submit', onSearch);
+form.addEventListener('submit', onSearch);
 
 function onSearch(event) {
   event.preventDefault();
+  
+  api.searchQuery = event.currentTarget.elements.query.value;
   
   if (api.searchQuery === '') {
     return error({
@@ -34,8 +36,15 @@ function onSearch(event) {
   }
 
   if (api.searchQuery !== event.currentTarget.elements.query.value) {
-    api.searchQuery = event.currentTarget.elements.query.value;  
+    api.resetPage();
+    gallery.innerHTML = '';
   }
+
+  console.log('start onSearch');
+
+  api
+    .fetchGallery()
+    .then(response => console.log(response.data));
 
 
   // loadMoreBtn.show();
